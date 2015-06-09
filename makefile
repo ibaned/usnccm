@@ -2,6 +2,7 @@ all: usnccm15.pdf
 
 usnccm15.pdf: usnccm15.tex DATA
 	pdflatex $^
+	pdflatex $^
 
 DATA: best.out
 	mpost ibanez_cse15.mp
