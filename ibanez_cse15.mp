@@ -132,10 +132,10 @@ draw u7.ne--(u7.ne + w);
 endfig;
 
 beginfig(6);
-boxjoin(b.w = a.e + (10,0))
-circleit.v0("0"); circleit.v1("1");
-circleit.v2("2"); circleit.v3("3");
-circleit.v4("4"); circleit.v5("5");
+boxjoin(b.w = a.e)
+boxit.v0("0"); boxit.v1("1");
+boxit.v2("2"); boxit.v3("3");
+boxit.v4("4"); boxit.v5("5");
 drawboxed(v0,v1,v2,v3,v4,v5);
 boxjoin(b.w = a.e)
 defaultdx:=8;
