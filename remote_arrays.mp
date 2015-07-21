@@ -1,0 +1,64 @@
+outputformat := "png";
+outputtemplate := "%j.%o";
+prologues := 3;
+hppp := 0.25;
+vppp := 0.25;
+input boxes
+
+beginfig(1);
+defaultdx := 6;
+defaultdy := 6;
+boxjoin(a.se = b.sw; a.ne = b.nw);
+boxit.v0();
+boxit.v1();
+boxit.v2();
+boxit.v3();
+boxit.v4();
+boxit.v5();
+boxit.v6();
+v0.sw = (20,0);
+drawboxed(v0,v1,v2,v3,v4,v5,v6);
+label.bot(btex first remote per vertex etex,v3.s);
+label.rt("...",v6.e);
+defaultdy := 12;
+boxjoin(a.ne = b.se; a.nw = b.sw);
+boxit.n0();
+boxit.n1();
+boxit.n2();
+n0.se = v0.nw + (-10,10);
+drawboxed(n0,n1,n2);
+label.lft("neighbors",n1.w);
+defaultdy := 6;
+boxjoin(a.se = b.sw; a.ne = b.nw);
+boxit.ra0();
+boxit.ra1();
+boxit.ra2();
+boxit.ra3();
+boxit.ra4();
+ra0.w = n0.e + (10,0);
+drawboxed(ra0,ra1,ra2,ra3,ra4);
+boxjoin(a.se = b.sw; a.ne = b.nw);
+boxit.rb0();
+boxit.rb1();
+boxit.rb2();
+rb0.w = n1.e + (10,0);
+drawboxed(rb0,rb1,rb2);
+boxjoin(a.se = b.sw; a.ne = b.nw);
+boxit.rc0();
+boxit.rc1();
+boxit.rc2();
+boxit.rc3();
+boxit.rc4();
+rc0.w = n2.e + (10,0);
+drawboxed(rc0,rc1,rc2,rc3,rc4);
+label.top(btex shared with one neighbor etex,rc4.n);
+drawarrow n0.e--ra0.w;
+drawarrow n1.e--rb0.w;
+drawarrow n2.e--rc0.w;
+drawarrow v2.n{up}..ra3.s{up};
+drawarrow ra3.n{up}..rb2.s{up};
+drawarrow rb2.n{up}..rc3.s{up};
+endfig;
+
+end.
+

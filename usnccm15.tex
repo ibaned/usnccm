@@ -18,6 +18,7 @@ We present a mesh data structure with novel properties:
 \item supports mixed element types
 \item stores arbitrary associated data
 \item uses 4x less memory than object-based versions
+\item efficiently supports parallel meshes
 \end{itemize}
 }
 
@@ -68,23 +69,9 @@ Required during any kind of mesh modification, including
 element load balancing.
 }
 
-\frame{\frametitle{Compact Upward Adjacency}
-Assuming a mesh is static, the upward data
-can be placed in one array.
-
-Note that it is exactly the same size as the downward
-array.
-
-That is because each entry represents an adjacency
-graph edge, in both arrays.
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{ibanez_cse15-5.png}
-\end{center}
-}
-
 \frame{\frametitle{Linked Upward Adjacency}
-We can also rearrange the entries of the upward array
+A more compact but equivalent format:
+The entries of the upward array are arranged
 to match the ordering of the downward array, such
 that the same graph edge has the same index.
 
@@ -94,6 +81,7 @@ that the same graph edge has the same index.
 
 Element id is now implicit by location, but
 entries are non-contiguous and must be linked.
+Graph edges from the same graph node are linked together.
 }
 
 \frame{\frametitle{Upward Adjacency Arrays}
@@ -110,28 +98,6 @@ of the list.
 Array indices are used instead of pointers.
 Upward adjacency can still be derived by traversing
 these lists-in-arrays.
-}
-
-\frame{\frametitle{Upward Adjacency Rationale}
-
-\begin{itemize}
-\item
-lists-in-array structure uses the same storage pattern
-as contiguous arrays structure.
-\item
-Elements can be \emph{added} by growing the array
-with new list nodes and linking them into the lists.
-\item
-Elements can be \emph{removed} by unlinking their list nodes
-from the lists.
-\item
-However, unlinking from singly-linked list is $O($list size$)$,
-which is $O($elements around vertex$)$. 
-So, we assume that the latter is $O(1)$.
-\end{itemize}
-
-\begin{center}
-\end{center}
 }
 
 \frame{\frametitle{Mesh Modification}

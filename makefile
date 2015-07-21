@@ -8,6 +8,7 @@ DATA: best.out
 	mpost ibanez_cse15.mp
 	mpost flex.mp
 	mpost mia.mp
+	mpost remote_arrays.mp
 	./getdat.sh
 
 clean:
