@@ -35,7 +35,7 @@ stiffness matrix assembly, etc.
 \vskip 20pt
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{ibanez_cse15-1.png}
+\includegraphics[width=0.3\textwidth]{ibanez_cse15-1.png}
 \hspace{30pt}
 \includegraphics[width=0.4\textwidth]{ibanez_cse15-2.png}
 \end{center}
@@ -49,7 +49,7 @@ have the same degree.
 In the example, both elements are quadrilaterals.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{ibanez_cse15-3.png}
+\includegraphics[width=0.5\textwidth]{ibanez_cse15-3.png}
 \end{center}
 }
 
@@ -76,51 +76,12 @@ to match the ordering of the downward array, such
 that the same graph edge has the same index.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{ibanez_cse15-6.png}
+\includegraphics[width=0.5\textwidth]{ibanez_cse15-6.png}
 \end{center}
 
 Element id is now implicit by location, but
 entries are non-contiguous and must be linked.
 Graph edges from the same graph node are linked together.
-}
-
-\frame{\frametitle{Upward Adjacency Arrays}
-Since the element id can be derived from the entry's
-position, we can use the entries to store list links
-instead.
-Another array for the nodes points to the head
-of the list.
-
-\begin{center}
-\includegraphics[width=0.6\textwidth]{ibanez_cse15-7.png}
-\end{center}
-
-Array indices are used instead of pointers.
-Upward adjacency can still be derived by traversing
-these lists-in-arrays.
-}
-
-\frame{\frametitle{Mesh Modification}
-\begin{itemize}
-\item
-All mesh modifications are implemented as element
-addition and removal.
-
-\item
-We have arrays of size $CN$ where $N$ is the
-number of entities of one type,
-and each $C$ contiguous entries
-correspond to the same entity.
-
-\item
-We need general array modification algorithms
-for adding and removing entries
-(or contiguous $C$ entries).
-
-\item
-Finally, we control where addition happens, users
-just want storage for a new entity.
-\end{itemize}
 }
 
 \frame{\frametitle{Array Addition}
@@ -236,7 +197,7 @@ per element
 
 \frame{\frametitle{Memory Use Comparison}
 \begin{center}
-\includegraphics[width=1.0\paperwidth]{memory_comparison.png}
+\includegraphics[width=1.0\paperwidth]{notgen/memory_comparison.png}
 \end{center}
 }
 
