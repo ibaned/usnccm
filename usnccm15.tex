@@ -62,7 +62,7 @@ This is harder, because the degrees are not the same.
 Object-based structures may store many small arrays.
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{ibanez_cse15-4.png}
+\includegraphics[width=0.5\textwidth]{ibanez_cse15-4.png}
 \end{center}
 
 Required during any kind of mesh modification, including
@@ -162,6 +162,30 @@ Increment used size, return last index
 
 }
 
+\frame{\frametitle{Parallel Mesh Remotes}
+Copies of the same vertex on different parts are
+connected by ``remote entities", or ``remotes".
+Example: one vertex, three parts, all neighbors.
+\begin{center}
+\includegraphics[width=0.7\textwidth]{remotes.png}
+\end{center}
+Remotes of of the same vertex on the same part
+are linked together.
+Pairs of remotes on different parts are linked
+by ``parallel pointers": (part id, index) tuples.
+}
+
+\frame{\frametitle{Remote Arrays}
+Remotes are grouped into arrays based on
+which neighbor they are linking with:
+one array per neighbor.
+\begin{center}
+\includegraphics[width=0.6\textwidth]{remote_arrays.png}
+\end{center}
+A separate array maps vertices to their
+first remote.
+}
+
 \frame{\frametitle{Element-Vertex Structure}
 
 A reduced mesh representation with only elements
@@ -172,6 +196,7 @@ and vertices would use the following set of arrays:
 \item Element free list array
 \item Element to vertex array
 \item Vertex to element lists-in-arrays
+\item Vertex remotes
 \item Simulation field arrays, indexed by vertex id
 \end{itemize}
 
@@ -181,6 +206,7 @@ and vertices would use the following set of arrays:
 
 \frame{\frametitle{Memory Analysis}
 \begin{itemize}
+\item single part, no remotes
 \item theoretical memory use for reduced tetrahedral mesh
 \item static pointers =
 $(4+4)n_{tet} + (3)n_{vtx}$

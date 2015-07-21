@@ -9,6 +9,7 @@ DATA: best.out
 	mpost flex.mp
 	mpost mia.mp
 	mpost remote_arrays.mp
+	mpost remotes.mp
 	./getdat.sh
 
 clean:
