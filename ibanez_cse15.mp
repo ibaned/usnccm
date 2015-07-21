@@ -132,19 +132,19 @@ draw u7.ne--(u7.ne + w);
 endfig;
 
 beginfig(6);
-boxjoin(b.w = a.e)
-boxit.v0("0"); boxit.v1("1");
-boxit.v2("2"); boxit.v3("3");
-boxit.v4("4"); boxit.v5("5");
-drawboxed(v0,v1,v2,v3,v4,v5);
-boxjoin(b.w = a.e)
 defaultdx:=8;
 defaultdy:=6;
+boxjoin(b.w = a.e)
+boxit.v0(); boxit.v1();
+boxit.v2(); boxit.v3();
+boxit.v4(); boxit.v5();
+drawboxed(v0,v1,v2,v3,v4,v5);
+boxjoin(b.w = a.e)
 boxit.u0(); boxit.u1();
 boxit.u2(); boxit.u3();
 boxit.u4(); boxit.u5();
 boxit.u6(); boxit.u7();
-u0.e=(0,50);
+u0.e = v0.sw + (0,40);
 drawboxed(u0,u1,u2,u3,u4,u5,u6,u7);
 defaultdy:=4;
 defaultdy:=4;
@@ -154,12 +154,16 @@ drawarrow v2.n--u5.s;
 drawarrow v3.n--u3.s;
 drawarrow v4.n--u2.s;
 drawarrow v5.n--u6.s;
-drawarrow u1.n{up}..u4.n;
-drawarrow u2.n{up}..u7.n;
-w:=u0.n - u0.s;
+drawarrow u1.n{(1,1)}..u4.n{(1,-1)};
+drawarrow u2.n{(1,1)}..u7.n{(1,-1)};
+w:=(0,30);
 draw u0.nw--(u0.nw + w);
 draw u4.nw--(u4.nw + w);
 draw u7.ne--(u7.ne + w);
+label.bot(btex first element of vertex etex, v3.sw);
+label.top(btex next element of vertex etex, u4.nw + (0,30));
+label.top(btex element 0 etex, u2.nw + (0,20));
+label.top(btex element 1 etex, u6.nw + (0,20));
 endfig;
 
 beginfig(7);
