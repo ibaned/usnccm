@@ -13,7 +13,7 @@
 \begin{itemize}
 \item Memory per core is decreasing
 \item Desired meshes are increasing in element count
-\item Flexible workflows when memory use is well below the limit
+\item Low memory use allows flexible workflows
 \item Array storage improves performance
 \begin{itemize}
 \item Locality of access, cache-friendly
@@ -245,8 +245,9 @@ and vertices would use the following set of arrays:
 \item Element free list array
 \item Element to vertex array
 \item Vertex to element lists-in-arrays
-\item Vertex remotes
-\item Simulation field arrays, indexed by vertex id
+\item Neighbor remote arrays
+\item Vertex to first remote array
+\item Optional simulation field arrays
 \end{enumerate}
 
 \end{itemize}
@@ -284,8 +285,10 @@ mesh on a single part.
 \begin{frame}
 \frametitle{Test 2: Scalable 1.6B Element Generation} 
 \begin{itemize}
+\item Run on RPI's IBM BlueGene/Q
 \item We start with 100K element mesh on rank 0; repeatedly
 refine and re-partition until it is 1.6 billion elements
+on 16K MPI ranks
 \item Tests scalability, speed, and memory use
 \item Initial mesh and refinement are very uniform
 \item Repeat 14 times ($2^{14} = 16384$):
@@ -300,7 +303,7 @@ refine and re-partition until it is 1.6 billion elements
 \end{frame}
 
 \begin{frame}
-\frametitle{Test 2: Runtime of Steps}
+\frametitle{Test 2: Runtime}
 \begin{center}
 \includegraphics[width=0.8\textwidth]{scl_time.png}
 \end{center}
@@ -311,15 +314,43 @@ refine and re-partition until it is 1.6 billion elements
 \end{frame}
 
 \begin{frame}
-\frametitle{Heap Memory Usage}
+\frametitle{Test 2: Memory Usage}
 \begin{center}
 \includegraphics[width=0.8\textwidth]{scl_bal_heap.png}
 \end{center}
 \begin{itemize}
 \item Total program memory measured by Operating System
 \item Parts get 200K elements during refinement
-(hence max = 2X average)
+(hence max is twice average)
 \item Other components use memory, such as MPI library
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test 2: Summary}
+\begin{itemize}
+\item Memory usage does scales well over process count,
+remains nearly constant
+\item Migration and edge splitting, both of which add and remove entities,
+also runs efficiently and scales over process count.
+\item Average memory use with many modifications and remotes
+involved is still about 100 bytes per element
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Closing}
+\begin{itemize}
+\item This data structure is at the frontier of compactness while
+supporting adaptation, modification, and migration.
+\item At 50-100 bytes per element, meshes of interest (at densities
+matching good solver performance) fit well within
+today's machines and will not be a memory problem on
+proposed future machines.
+\item New algorithms were developed to handle general parallel
+cavity-based refinement directly on reduced representations.
+\item Even for full representations, this work shows that array
+storage is effective for all parts of the mesh, including remotes.
 \end{itemize}
 \end{frame}
 
